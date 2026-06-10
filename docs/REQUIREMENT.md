@@ -11,11 +11,11 @@ Store the title of the tasks you work on. Allow to add new, update existing and 
 
 # Milestones
 ## Milestone 1 - ToDo App Frontend
-> Setup the  Project git repository
-> Install and setup react application using vite
-  --- Configure routing
-  --- Add react hook form
-  --- Add yup
+> Setup the  Project git repository ✅
+> Install and setup react application using vite✅
+  --- Configure routing ✅
+  --- Add react hook form✅
+  --- Add yup🚧 
 > As a user I shoud be able to List all tasks
 > As a user I should be able to add new task and see it as soon as I add it
 > As a user I should be able to edit existing task
