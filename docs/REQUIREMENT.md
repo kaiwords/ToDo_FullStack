@@ -23,8 +23,8 @@ Store the title of the tasks you work on. Allow to add new, update existing and 
 > As a user I should be able to delete existing task ✅
 
 ## Milestone 2 - ToDo App Backend
-> Install and setup express.js using vite 🚧
- --- Prisma (connect to database)
+> Install and setup express.js using vite ✅
+ --- Prisma (connect to database)🚧
 >Create database schema
  --- Task
 > Create API endpoints
