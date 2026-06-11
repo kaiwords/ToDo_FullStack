@@ -63,6 +63,14 @@ function currentTask(task) {
   });
   setTodoTasks(updatedTasks);
 }
+
+function deleteTask(task) {
+  const updatedTasks = todoTasks.filter(t => {
+    return t.id !== task.id;
+  });
+  setTodoTasks(updatedTasks);
+  
+}
   return (
     <>
       <h2>ToDo App</h2>
@@ -71,7 +79,11 @@ function currentTask(task) {
         {
           todoTasks.map((task, index) => (<li key = {index}>
             {
-           task.isEditing ? (<EditToDoForm handleUpdateTask={handleUpdateTask} task={task} />): <span onClick={() => currentTask(task)}>{task.task}</span>
+           task.isEditing ? (<EditToDoForm handleUpdateTask={handleUpdateTask} task={task} />): 
+           <div>
+            <span onClick={() => currentTask(task)}>{task.task}</span>
+            {" "}<button onClick={() => deleteTask(task)}>Delete</button>
+            </div>
             }
           </li>))
         }  
