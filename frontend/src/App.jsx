@@ -2,6 +2,8 @@ import './App.css'
 import EditToDoForm from './Components/EditToDoForm';
 import ToDoForm from './Components/ToDoForm';
 import {useState} from 'react';
+import { useEffect } from 'react';
+import { getTasks } from './actions/taskActions';
 function App() {
   const [todoTasks, setTodoTasks] = useState([
     {
@@ -42,6 +44,13 @@ function handleAddTask(newTask) {
   ])
   //setTodoTasks([newTask, ...todoTasks]); // Add the new task to the beginning of the list. Also, it determines the postion of the new task in the list. If we want to add the new task at the end of the list, we can use setTodoTasks([...todoTasks, newTask]);  
 } //we use StateVariable to update the list of tasks. Whenever a new task is added, the state variable is updated, and the component re-renders to reflect the changes in the UI.
+
+useEffect(() => {
+  (async () =>{
+    const tasks = await getTasks();
+    setTodoTasks(tasks);
+  }) ();
+}, []); //useEffect is a React hook that allows us to perform side effects in functional components. In this case, we are using it to fetch the list of tasks from the backend when the component mounts. The empty dependency array [] ensures that this effect runs only once when the component is first rendered.
 
 function handleUpdateTask(taskToUpdate) {
   console.log("Task updated:", taskToUpdate);
