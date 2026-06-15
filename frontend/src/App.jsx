@@ -3,7 +3,7 @@ import EditToDoForm from './Components/EditToDoForm';
 import ToDoForm from './Components/ToDoForm';
 import {useState} from 'react';
 import { useEffect } from 'react';
-import { getTasks } from './actions/taskActions';
+import { getTasks, addTask } from './actions/taskActions';
 function App() {
   const [todoTasks, setTodoTasks] = useState([
     {
@@ -34,14 +34,10 @@ function App() {
   
   ]); //useState is a React hook that allows us to add state to functional components. In this case, we are using it to manage the list of tasks in our ToDo app. The initial state is an array of sample tasks. The setTodoTasks function is used to update the state whenever a new task is added.
 
-function handleAddTask(newTask) {
+async function handleAddTask(task) {
+  const newTask = await addTask(task);
   console.log("New task added:", newTask);
-  setTodoTasks([{
-    id: todoTasks.length + 1, // Generate a new ID based on the current length of the tasks array. This is a simple way to ensure unique IDs for each task.
-    task: newTask,
-    isEditing: false,},
-    ...todoTasks
-  ])
+  setTodoTasks([newTask, ...todoTasks])
   //setTodoTasks([newTask, ...todoTasks]); // Add the new task to the beginning of the list. Also, it determines the postion of the new task in the list. If we want to add the new task at the end of the list, we can use setTodoTasks([...todoTasks, newTask]);  
 } //we use StateVariable to update the list of tasks. Whenever a new task is added, the state variable is updated, and the component re-renders to reflect the changes in the UI.
 
