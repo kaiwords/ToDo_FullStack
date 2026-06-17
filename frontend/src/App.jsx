@@ -4,6 +4,7 @@ import ToDoForm from './Components/ToDoForm';
 import {useState} from 'react';
 import { useEffect } from 'react';
 import { getTasks, addTask } from './actions/taskActions';
+import { deleteTask } from './actions/taskActions';
 function App() {
   const [todoTasks, setTodoTasks] = useState([
     {
@@ -69,13 +70,14 @@ function currentTask(task) {
   setTodoTasks(updatedTasks);
 }
 
-function deleteTask(task) {
-  const updatedTasks = todoTasks.filter(t => {
-    return t.id !== task.id;
-  });
-  setTodoTasks(updatedTasks);
-  
+async function deleteCurrentTask(task) {
+    await deleteTask(task.id);
+    const updatedTasks = todoTasks.filter(t => {
+      return t.id !== task.id;
+    });
+    setTodoTasks(updatedTasks);  
 }
+
   return (
     <>
       <h2>ToDo App</h2>
@@ -87,7 +89,7 @@ function deleteTask(task) {
            task.isEditing ? (<EditToDoForm handleUpdateTask={handleUpdateTask} task={task} />): 
            <div>
             <span onClick={() => currentTask(task)}>{task.task}</span>
-            {" "}<button onClick={() => deleteTask(task)}>Delete</button>
+            {" "}<button onClick={() => deleteCurrentTask(task)}>Delete</button>
             </div>
             }
           </li>))

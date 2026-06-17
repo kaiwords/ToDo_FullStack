@@ -12,3 +12,26 @@ export const createTask = async (task) => {
         },
     });
 };
+
+export const getTask = async (id) => {
+    return prisma.task.findUnique({
+        where: { id: id,}
+    });
+}
+
+export const updateTask = async (id, task) => {
+    console.log({task, id});
+    return prisma.task.update({
+        where: { id: id },
+        data: { task: task,
+             isEditing: false },
+    });
+};
+
+const deleteTask = async (id) => {
+    return prisma.task.delete({
+        where: { id: id }
+    });
+};
+
+export { deleteTask };

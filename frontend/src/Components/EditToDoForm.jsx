@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import { updateTask } from "../actions/taskActions";
 const schema = yup
   .object({
     task: yup.string().required("Task is required")
@@ -20,13 +21,10 @@ export default function EditToDoForm({ handleUpdateTask, task }) {
         task: task.task}
   });
 
-    const onSubmit = (data) => 
+    const onSubmit = async (data) => 
     {
-        handleUpdateTask({
-            id: task.id,
-            task: data.task,
-            isEditing: false,
-        }); //default == console.log(data);
+        const updatedTask = await updateTask(task.id, data.task);
+        handleUpdateTask(updatedTask);
         reset();
     }
 
