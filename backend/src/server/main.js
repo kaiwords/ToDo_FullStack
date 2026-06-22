@@ -2,8 +2,20 @@ import express from "express";
 import ViteExpress from "vite-express";
 import cors from "cors";
 import { getTasks, createTask, getTask, updateTask, deleteTask } from "./dbService.js";
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+
 
 const app = express();
+
+const swaggerSpec = swaggerJsdoc({
+  definition: {
+    openapi: '3.0.0',
+    info: { title: 'ToDo API', version: '1.0.0' },
+  },
+  apis: ['./src/server/main.js'],
+});
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 app.use(cors()); // Enable CORS to allow requests from the frontend. This is necessary because the frontend and backend are running on different ports during development.

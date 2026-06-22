@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-"scripts": {
+  "scripts": {
     "dev": "nodemon src/server/main.js -w src/server",
     "start": "NODE_ENV=production node src/server/main.js",
     "build": "prisma generate && find src/server -name '*.js' -exec node --check {} \\;",
@@ -22,6 +22,8 @@
     "express": "^5.1.0",
     "pg": "^8.21.0",
     "prisma": "^7.8.0",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1",
     "vite-express": "*"
   }
 }

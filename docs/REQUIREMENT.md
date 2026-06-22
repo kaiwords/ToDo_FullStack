@@ -43,6 +43,7 @@ Store the title of the tasks you work on. Allow to add new, update existing and 
 > As a user I should be able to add new task that store to the database
 
 ## Milestone 4 - Deployment of the App
+> Deploy both fronend and backend in vercel
 > Create pipeline to build and deploy task to AWS
 > Create infra to host frontend in S3
 > Create infra to host backend EC2
