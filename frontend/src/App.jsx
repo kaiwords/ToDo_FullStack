@@ -1,6 +1,7 @@
 import './App.css'
 import EditToDoForm from './Components/EditToDoForm';
 import ToDoForm from './Components/ToDoForm';
+import TenantDashboard from './Components/TenantDashboard';
 import {useState} from 'react';
 import { useEffect } from 'react';
 import { getTasks, addTask } from './actions/taskActions';
@@ -78,8 +79,28 @@ async function deleteCurrentTask(task) {
     setTodoTasks(updatedTasks);  
 }
 
+  const [page, setPage] = useState('todo');
+
+  const navBtn = (target, label) => (
+    <button
+      onClick={() => setPage(target)}
+      style={{
+        marginRight: 8, padding: '6px 14px', cursor: 'pointer', border: 'none', borderRadius: 4,
+        background: page === target ? '#333' : '#eee', color: page === target ? '#fff' : '#333',
+      }}
+    >{label}</button>
+  );
+
   return (
     <>
+      <div style={{ marginBottom: 20 }}>
+        {navBtn('todo', 'ToDo App')}
+        {navBtn('tenants', 'Tenant Performance')}
+      </div>
+
+      {page === 'tenants' && <TenantDashboard />}
+
+      {page === 'todo' && <>
       <h2>ToDo App</h2>
       <ToDoForm handleAddTask={handleAddTask} /> {/* Pass the handler function as a prop  meaning the function has to be passed as a prop to call outside the component.*/}
       <ul>
@@ -95,7 +116,8 @@ async function deleteCurrentTask(task) {
           </li>))
         }  
       </ul>
-    </>
+    </>}
+  </>
   )
 }
 export default App

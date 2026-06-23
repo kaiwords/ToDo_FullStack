@@ -4,6 +4,7 @@ import cors from "cors";
 import { getTasks, createTask, getTask, updateTask, deleteTask } from "./dbService.js";
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import { getLeaseholders, createLeaseholder, getTenants, createTenant, getPerformanceByTenant, createPerformance } from './performanceService.js';
 
 
 const app = express();
@@ -55,6 +56,39 @@ app.delete("/tasks/:id", async (req, res) => {
   }
   await deleteTask(parseInt(id));
   res.json({message: "Task deleted successfully"})
+});
+
+app.get('/leaseholders', async (req, res) => {
+  const leaseholders = await getLeaseholders();
+  res.json(leaseholders);
+});
+
+app.post('/leaseholders', async (req, res) => {
+  const { name, email, phone } = req.body;
+  const leaseholder = await createLeaseholder(name, email, phone);
+  res.json(leaseholder);
+});
+
+app.get('/tenants', async (req, res) => {
+  const tenants = await getTenants();
+  res.json(tenants);
+});
+
+app.post('/tenants', async (req, res) => {
+  const { name, email, phone, currentLeaseholderId } = req.body;
+  const tenant = await createTenant(name, email, phone, currentLeaseholderId);
+  res.json(tenant);
+});
+
+app.get('/performance/:tenantId', async (req, res) => {
+  const { tenantId } = req.params;
+  const performance = await getPerformanceByTenant(tenantId);
+  res.json(performance);
+});
+
+app.post('/performance', async (req, res) => {
+  const performance = await createPerformance(req.body);
+  res.json(performance);
 });
 
 ViteExpress.listen(app, 3000, () =>

@@ -17,3 +17,56 @@ model Task {
   task      String  @unique
   isEditing Boolean @default(false)
 }
+
+model Leaseholder {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  phone     String?
+  createdAt DateTime @default(now())
+
+  requestedPerformances TenantPerformance[] @relation("RequestedBy")
+  submittedPerformances TenantPerformance[] @relation("SubmittedBy")
+  tenants               Tenant[]
+}
+
+model Tenant {
+  id                   Int          @id @default(autoincrement())
+  name                 String
+  email                String       @unique
+  phone                String?
+  currentLeaseholderId Int?
+  currentLeaseholder   Leaseholder? @relation(fields: [currentLeaseholderId], references: [id])
+  createdAt            DateTime     @default(now())
+
+  performances TenantPerformance[]
+}
+
+model TenantPerformance {
+  id              Int         @id @default(autoincrement())
+  tenantId        Int
+  tenant          Tenant      @relation(fields: [tenantId], references: [id])
+  requestedById   Int
+  requestedBy     Leaseholder @relation("RequestedBy", fields: [requestedById], references: [id])
+  submittedById   Int
+  submittedBy     Leaseholder @relation("SubmittedBy", fields: [submittedById], references: [id])
+
+  financialScore     Int
+  propertyScore      Int
+  complianceScore    Int
+  lifestyleScore     Int
+  communicationScore Int
+
+  smokes             Boolean @default(false)
+  drinks             Boolean @default(false)
+  drugs              Boolean @default(false)
+  pets               Boolean @default(false)
+  noisyParties       Boolean @default(false)
+  unauthorizedGuests Boolean @default(false)
+
+  wouldRentAgain Boolean
+  overallRating  Int
+  comments       String?
+
+  createdAt DateTime @default(now())
+}
