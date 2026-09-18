@@ -7,9 +7,11 @@
     "dev": "nodemon src/server/main.js -w src/server",
     "start": "NODE_ENV=production node src/server/main.js",
     "build": "prisma generate && find src/server -name '*.js' -exec node --check {} \\;",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
     "postinstall": "prisma generate"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^3.1.10",
     "vite": "^6.3.3"
   },
